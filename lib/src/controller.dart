@@ -37,14 +37,14 @@ class InputFieldValues<T> {
 }
 
 abstract class TextfieldTagsNotifier<T> extends ChangeNotifier {
-  late ObjIder<ScrollController>? _scrollController;
-  late ObjIder<FocusNode>? _focusNode;
-  late ObjIder<TextEditingController>? _textEditingController;
+  ObjIder<ScrollController>? _scrollController;
+  ObjIder<FocusNode>? _focusNode;
+  ObjIder<TextEditingController>? _textEditingController;
 
-  late LetterCase? _letterCase;
-  late Set<String>? _textSeparators;
-  late List<T>? _tags;
-  late Validator<T>? _validator;
+  LetterCase? _letterCase;
+  Set<String>? _textSeparators;
+  List<T>? _tags;
+  Validator<T>? _validator;
 
   TextfieldTagsNotifier({
     List<T>? initialTags,
@@ -158,24 +158,17 @@ class TextfieldTagsController<T> extends TextfieldTagsNotifier<T> {
     TextEditingController? textEditingController,
     ScrollController? scrollController,
   ) {
-    assert(
-      (_tags == null &&
-          _textSeparators == null &&
-          _letterCase == null &&
-          _validator == null),
-      'You\'ve already registered a tag controller',
-    );
-    _tags = initialTags != null ? initialTags.toList() : [];
-    _textSeparators = textSeparators != null ? textSeparators.toSet() : {};
-    _letterCase = letterCase ?? LetterCase.normal;
-    _validator = validator;
-    _focusNode = focusNode != null
+    _tags ??= initialTags != null ? initialTags.toList() : [];
+    _textSeparators ??= textSeparators != null ? textSeparators.toSet() : {};
+    _letterCase ??= letterCase ?? LetterCase.normal;
+    _validator ??= validator;
+    _focusNode ??= focusNode != null
         ? ObjIder<FocusNode>(focusNode, false)
         : ObjIder<FocusNode>(FocusNode(), true);
-    _textEditingController = textEditingController != null
+    _textEditingController ??= textEditingController != null
         ? ObjIder<TextEditingController>(textEditingController, false)
         : ObjIder<TextEditingController>(TextEditingController(), true);
-    _scrollController = scrollController != null
+    _scrollController ??= scrollController != null
         ? ObjIder<ScrollController>(scrollController, false)
         : ObjIder<ScrollController>(ScrollController(), true);
   }
